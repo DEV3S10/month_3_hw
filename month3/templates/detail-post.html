@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="text-align: center; ">
+        <p>
+            <a>{{ user }}</a>
+            {% if users.is_authenticated %}
+            <a href="/users/logout/">LOGOUT</a>
+            {% endif %}
+        </p>
+        <p>Title: {{ post.title }}</p>
+        <p><img src="{{ post.image.url }}" alt=""></p>
+        <p>Description: {{ post.description }}</p>
+        <p>hashtags: {{ post.hashtags }}</p>
+    {% if user.is_authenticated %}
+        <hr>
+        <form action="/blog/{{ post.id }}/" method="post">
+            {% csrf_token %}
+            <input type="text" name="comment">
+            <input type="submit">
+        </form>
+    {% endif %}
+        <hr>
+        <div>
+            <h3>Comments:</h3>
+            <ul style="list-style: none">
+                {% for  i in comments %}
+                    <li>
+                        <div>
+                            <p>
+                                {{ i.text }}
+                            </p>
+                            <span>
+                              {{ i.datetime }}
+                            </span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

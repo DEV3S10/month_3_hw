@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>MY LITTLE BLOG</title>
+</head>
+<body>
+    <p>HELLO, EVERYONE THIS MY LITTLE BLOG</p>
+    {% if request.user.is_authenticated %}
+        <div>
+            <span>
+                Hi! {{ request.user.first_name }}, {{ request.user.last_name }}
+            </span>
+            <span>
+                <a href="/blog/create-post/">Add a new post</a>
+            </span>
+        </div>
+    {% endif %}
+    <ul>
+        {% for i in posts %}
+            <li>
+                <a href="/blog/{{ i.id }}/">
+                    <p>Title: {{ i.title }}</p>
+                </a>
+                <p><img src="{{ i.image.url }}" alt=""></p>
+                <p>Description: {{ i.description }}</p>
+                <p>hashtags: {{ i.hashtags }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
